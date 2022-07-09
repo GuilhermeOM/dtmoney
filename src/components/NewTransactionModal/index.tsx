@@ -1,6 +1,9 @@
-import Modal from 'react-modal';
-import { Container } from './styles';
-import closeImg from '../../assets/close.svg';
+import { useState } from "react";
+import { Container, TransactionTypeContainer, RadioBox } from "./styles";
+import Modal from "react-modal";
+import closeImg from "../../assets/close.svg";
+import incomeImg from "../../assets/income.svg";
+import outcomeImg from "../../assets/outcome.svg";
 
 interface NewTransactionModalProps {
     isOpen: boolean;
@@ -8,6 +11,8 @@ interface NewTransactionModalProps {
 }
 
 export function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionModalProps) {
+    const [type, setType] = useState("deposit");
+
     return (
         <Modal
             isOpen={isOpen}
@@ -22,6 +27,7 @@ export function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionMo
             >
                 <img src={closeImg}  alt="Fechar modal" />
             </button>
+
             <Container>
                 <h2>Cadastrar transações</h2>
 
@@ -33,6 +39,26 @@ export function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionMo
                     type="number"
                     placeholder="Valor"
                 />
+
+                <TransactionTypeContainer>
+                    <RadioBox
+                        type="button"
+                        onClick={() => setType("deposit")}
+                        isActive={type === "deposit"}
+                    >
+                        <img src={incomeImg} alt="Entrada" />
+                        <span>Entrada</span>
+                    </RadioBox>
+
+                    <RadioBox
+                        type="button"
+                        onClick={() => setType("withdraw")}
+                        isActive={type === "withdraw"}
+                    >
+                        <img src={outcomeImg} alt="Saída" />
+                        <span>Entrada</span>
+                    </RadioBox>
+                </TransactionTypeContainer>
 
                 <input
                     placeholder="Categoria"
